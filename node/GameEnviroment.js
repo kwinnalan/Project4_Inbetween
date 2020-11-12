@@ -1,4 +1,5 @@
 "use strict";
+const PROMPT = require('readline-sync');
 
 const DECK = require('../node/Deck');
 const PLAYER = require('../node/Player');
@@ -14,11 +15,11 @@ class GameEnviroment {
     constructor(numDecks, hasJokers) {
             this.#createDeck(numDecks, hasJokers);
             this.#setPlayers();
-        while(this.#deck.length > 4){
-            console.log(this.#deck.length);
+
+        while(this.#deck[0].length > 3){
             this.#setBoard();
-            this.#dealCard();
-            // this.#dealCards();
+            this.#deal();
+            this.#settleUp();
             // this.#play();
             //this.#displayGameData();
         }
@@ -38,39 +39,55 @@ class GameEnviroment {
         }
     }
 
+
+
     #setPlayers() {
-        const NUM_PLAYERS = 2;
+        const NUM_PLAYERS = 3;
+
         for (let i = 0; i < NUM_PLAYERS; i++) {
+          // let name = this.#getName();
+          // let coins = this.#getCoins();
+
             this.#players.push(new PLAYER());
         }
+        console.log(this.#players);
     }
 
     #setBoard() {
-        console.log(this.#deck);
+        //console.log(this.#deck);
         for (let i = 0; i < 2; i++) {
             this.#board[i] = (this.#deck[0].shift());
         }
-        console.log(this.#board);
-        console.log(this.#deck);
+        // console.log(this.#board);
+        // console.log(this.#deck);
     }
 
 
-    #dealCard() {
+    #deal() {
         let card = (this.#deck[0].shift());
         let win;
 
         if (this.#board[0].get('value') === this.#board[1].get('value')) {
             win = 3;
-        }else if(this.#board[0].get('value') === card || this.#board[1].get('value') === card){
+        }else if(this.#board[0].get('value') === card.get('value') || this.#board[1].get('value') === card.get('value')){
             win = 0;
-        } else if (this.#board[0].get('value') > this.#board[1].get('value') && card > this.#board[1].get('value') && card <  this.#board[0].get('value')) {
+        } else if (this.#board[0].get('value') > this.#board[1].get('value') && card.get('value') > this.#board[1].get('value') && card.get('value') <  this.#board[0].get('value')) {
             win = 1;
-        } else if (this.#board[1].get('value') > this.#board[0].get('value') && card > this.#board[0].get('value') && card <  this.#board[1].get('value')) {
+        } else if (this.#board[1].get('value') > this.#board[0].get('value') && card.get('value') > this.#board[0].get('value') && card.get('value') <  this.#board[1].get('value')) {
             win = 1;
         }else{
             win = 0;
         }
-        console.log('c:', card, 'b:', this.#board, 'w', win);
+        console.log('c:', card, 'b:', this.#board, 'w:', win);
+    }
+
+    #settleUp(){
+
+
+        let bet = 1;
+        //
+        // this.players[0].coins = this.players[0].coins;
+        // console.log(this.players[0].coins);
     }
 
 
