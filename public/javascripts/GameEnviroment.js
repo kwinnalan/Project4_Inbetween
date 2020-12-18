@@ -64,10 +64,10 @@ export default class GameEnviroment {
         }
     }
 
-    async setPlayers() {
+    setPlayers() {
        document.getElementById(`playerInputs`).style = "dislay: block";
         for(let i = 0; i < NUM_PLAYERS; i++) {
-            await this.players.push(new PLAYER());
+            this.players.push(new PLAYER());
             //console.log(`Player ${i} created`);
 
             // if(i === 0) {
@@ -324,11 +324,7 @@ export default class GameEnviroment {
 
    async getUserBetInput() {
         let input;
-         //= await document.getElementById('betCoinsBtn').addEventListener("click", function () {
-        //             input = document.getElementById('betCoins').value;
-        //             console.log("inside promise.." + input);
-        //             this.betInput = input;});
-        // await setTimeout(function (){console.log('timer afeter 5000')},5000);
+
     const promise = new Promise((resolve, reject) => {
         document.getElementById('betCoinsBtn').addEventListener("click",function () {
             input = document.getElementById('betCoins').value;
@@ -344,10 +340,6 @@ export default class GameEnviroment {
        });
       return promise;
     }
-
-        async wait(){
-            await setTimeout(function (){return}, 5000);
-        }
 
     #endGame() {
         console.log(`No one left has any coins! `)
